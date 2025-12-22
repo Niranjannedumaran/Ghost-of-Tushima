@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHOST OF TSUSHIMA | PRECISE UI</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;900&display=swap');
+
+        :root {
+            --m-red: #ff3131;
+            --bg-dark: #0a0a0a;
+        }
+
+        /* --- CORE STYLING --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { 
+            background-color: var(--bg-dark); 
+            color: #fff; 
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- LAYER 1: BACKGROUND OUTLINE --- */
+        .ghost-outline {
+            position: fixed;
+            top: 50%;
+            right: -8%;
+            transform: translateY(-50%);
+            font-size: 38vw;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 1.5px rgba(255,255,255,0.04);
+            z-index: 0;
+            pointer-events: none;
+            letter-spacing: -10px;
+        }
+
+        /* --- LAYER 2: THE RED SUN --- */
+        .red-circle {
+            position: fixed;
+            width: 72vh;
+            height: 72vh;
+            background: var(--m-red);
+            border-radius: 50%;
+            left: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        /* --- LAYER 3: VERTICAL TEXT --- */
+        .v-kanji {
+            position: absolute;
+            left: 46%; /* Precisely tucked behind the character's back/bow */
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Playfair Display';
+            font-size: 9.5rem;
+            writing-mode: vertical-rl;
+            color: rgba(255,255,255,0.9);
+            z-index: 2;
+            letter-spacing: -12px;
+            user-select: none;
+            pointer-events: none;
+
+        }
+
+        /* --- LAYER 4: HERO CHARACTER --- */
+        .hero-container {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 100vh;
+            width: 58vw;
+            z-index: 5;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .hero-img {
+            height: 94%; /* Matches the scale of your reference */
+            width: auto;
+            filter: drop-shadow(0 30px 100px rgba(0,0,0,1));
+            pointer-events: none;
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            
+        }
+
+        /* --- LAYER 5: MAIN UI CONTENT --- */
+        .ui-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            padding: 0 8%;
+        }
+
+        .header-logo {
+            position: absolute;
+            top: 60px;
+            left: 80px;
+            font-family: 'Syncopate';
+            letter-spacing: 14px;
+            font-size: 1.3rem;
+        }
+
+        .text-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 80px;
+        }
+
+        .text-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.8rem;
+            line-height: 1.05;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .text-content p {
+            color: #a1a1a1;
+            max-width: 440px;
+            line-height: 1.9;
+            margin-bottom: 55px;
+            font-weight: 300;
+            font-size: 0.95rem;
+        }
+
+        .cta-button {
+            font-family: 'Syncopate';
+            font-size: 10px;
+            letter-spacing: 6px;
+            text-decoration: none;
+            color: #fff;
+            border-bottom: 2px solid var(--m-red);
+            padding-bottom: 14px;
+            width: fit-content;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cta-button:hover { 
+            padding-left: 30px; 
+            color: var(--m-red); 
+            letter-spacing: 8px;
+        }
+
+        /* --- UI DECORATION --- */
+        .sidebar-info {
+            position: absolute;
+            left: 50px;
+            bottom: 60px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            padding-left: 20px;
+            font-family: 'Syncopate';
+            font-size: 9px;
+            letter-spacing: 3px;
+            line-height: 2.5;
+            opacity: 0.5;
+        }
+
+        #custom-cursor {
+            position: fixed;
+            width: 8px; height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+    <div class="ghost-outline">GHOST</div>
+    <div class="red-circle"></div>
+    <div class="v-kanji">ゴースト</div>
+
+    <div class="header-logo">GHOST</div>
+
+    <div class="sidebar-info">
+        SUMMER '20<br>
+        SUCKERPUNCH
+    </div>
+
+    <div class="hero-container">
+        <img src="./Hero.png" class="hero-img" id="character-jin">
+    </div>
+
+    <main class="ui-grid">
+        <div class="empty-col"></div>
+        <div class="text-content">
+            <h2>Rise from the<br>ashes to fight back</h2>
+            <p>
+                The year is 1274. Samurai warriors are the legendary defenders of Japan—until the fearsome Mongol Empire invades the island of Tsushima, wreaking havoc and conquering the local population.
+            </p>
+            <a href="#" class="cta-button">PREORDER NOW</a>
+        </div>
+    </main>
+
+    <script>
+        // Smooth Cursor Follow
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+        });
+
+        // "Perfect Fit" Entrance Timeline
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
+            tl.from("#character-jin", { y: 120, opacity: 0, duration: 2, ease: "power4.out" })
+              .from(".red-circle", { scale: 0, duration: 1.4, ease: "expo.out" }, "-=1.6")
+              .from(".v-kanji", { opacity: 0, x: -40, duration: 1.2 }, "-=1.2")
+              .from(".text-content", { x: 60, opacity: 0, duration: 1.5, ease: "power3.out" }, "-=1")
+              .from(".header-logo, .sidebar-info, .ghost-outline", { opacity: 0, duration: 1.5, stagger: 0.2 }, "-=1");
+        });
+    </script>
+</body>
+</html>
