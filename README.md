@@ -1,4 +1,4 @@
-# 🗡️ Ghost of Tsushima – Promotional Webpage
+# 🗡️ Ghost of Tsushima – Webpage
 
 A cinematic, animated landing page inspired by the legendary samurai epic **Ghost of Tsushima**. This project showcases a bold visual layout, immersive storytelling, and a call-to-action for preorders — all wrapped in a sleek, responsive design.
 
